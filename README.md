@@ -23,25 +23,43 @@ STEP 7: Use cross tabulation method to quantitatively analyze the relationship b
 STEP 8: Use heatmap method of representation to show relationships between two variables, one plotted on each axis.
 
 ## CODING AND OUTPUT:
+~~~
+# ----------------------------------------
+# Step 1: Import Required Packages
+# ----------------------------------------
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-data = pd.read_csv("titanic_dataset.csv")
+~~~
+~~~
+# ----------------------------------------
+# Step 2: Load the Dataset
+# ----------------------------------------
+data = pd.read_csv("Exp_2_dataset_titanic_dataset.csv")
 
 print("\nDataset Loaded Successfully\n")
 print(data.head())
 print("\nDataset Info:\n")
 print(data.info())
 print(data.describe())
-
+~~~
+~~~
+# ----------------------------------------
+# Step 3: Data Cleansing - Handle Missing Values
+# ----------------------------------------
 for column in data.columns:
     if data[column].dtype == 'object':
         data[column] = data[column].fillna(data[column].mode()[0])   # Mode for categorical
-
+    else:
+        data[column] = data[column].fillna(data[column].median())   # Median for numerical
 
 print("\nMissing values handled successfully.\n")
-
+~~~
+~~~
+# ----------------------------------------
+# Step 4: Boxplot to Analyze Outliers (Age & Fare)
+# ----------------------------------------
 plt.figure(figsize=(6,4))
 sns.boxplot(x=data["Age"])
 plt.title("Boxplot - Age")
@@ -51,7 +69,15 @@ plt.figure(figsize=(6,4))
 sns.boxplot(x=data["Fare"])
 plt.title("Boxplot - Fare")
 plt.show()
+~~~
+<img width="625" height="513" alt="Screenshot 2026-03-09 112615" src="https://github.com/user-attachments/assets/d5602853-c8b4-4566-a3bf-627bfe35cab6" />
 
+<img width="654" height="523" alt="Screenshot 2026-03-09 112621" src="https://github.com/user-attachments/assets/371cd731-27e2-4337-9e0c-e04a4e41934f" />
+
+~~~
+# ----------------------------------------
+# Step 5: Remove Outliers Using IQR Method
+# ----------------------------------------
 def remove_outliers_iqr(df, column):
     Q1 = df[column].quantile(0.25)
     Q3 = df[column].quantile(0.75)
@@ -64,7 +90,11 @@ data = remove_outliers_iqr(data, "Age")
 data = remove_outliers_iqr(data, "Fare")
 
 print("Outliers removed using IQR method.\n")
-
+~~~
+~~~
+# ----------------------------------------
+# Step 6: Countplot for Categorical Data
+# ----------------------------------------
 plt.figure(figsize=(6,4))
 sns.countplot(x="Survived", data=data)
 plt.title("Countplot - Survival Distribution")
@@ -79,7 +109,17 @@ plt.figure(figsize=(6,4))
 sns.countplot(x="Pclass", data=data)
 plt.title("Countplot - Passenger Class Distribution")
 plt.show()
+~~~
+<img width="791" height="513" alt="Screenshot 2026-03-09 112629" src="https://github.com/user-attachments/assets/c38d49f4-0633-40a4-9c59-a090c8e0e5c5" />
 
+<img width="752" height="519" alt="Screenshot 2026-03-09 112635" src="https://github.com/user-attachments/assets/36b0909e-c8d8-4637-ac87-d7122a8291c3" />
+
+<img width="752" height="519" alt="Screenshot 2026-03-09 112635" src="https://github.com/user-attachments/assets/2486931a-32c7-4327-8d15-33e37dcc928d" />
+
+~~~
+# ----------------------------------------
+# Step 7: Displot for Univariate Distribution
+# ----------------------------------------
 sns.displot(data["Age"], kde=True, height=4, aspect=1.5)
 plt.title("Displot - Age Distribution")
 plt.show()
@@ -87,18 +127,32 @@ plt.show()
 sns.displot(data["Fare"], kde=True, height=4, aspect=1.5)
 plt.title("Displot - Fare Distribution")
 plt.show()
+~~~
+<img width="782" height="538" alt="Screenshot 2026-03-09 112648" src="https://github.com/user-attachments/assets/20a8d045-843b-432b-ac1a-f2c3d404579a" />
 
+<img width="782" height="538" alt="Screenshot 2026-03-09 112648" src="https://github.com/user-attachments/assets/b71aa71b-aa72-40fa-be1c-fe49c1436d3f" />
+
+~~~
+# ----------------------------------------
+# Step 8: Cross Tabulation
+# ----------------------------------------
 print("\nCross Tabulation: Sex vs Survived\n")
 print(pd.crosstab(data["Sex"], data["Survived"]))
 
 print("\nCross Tabulation: Pclass vs Survived\n")
 print(pd.crosstab(data["Pclass"], data["Survived"]))
-
+~~~
+~~~
+# ----------------------------------------
+# Step 9: Heatmap for Correlation Analysis
+# ----------------------------------------
 plt.figure(figsize=(8,6))
 correlation_matrix = data.select_dtypes(include=np.number).corr()
 sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm")
 plt.title("Correlation Heatmap - Titanic Dataset")
 plt.show()
+~~~
+<img width="782" height="538" alt="Screenshot 2026-03-09 112648" src="https://github.com/user-attachments/assets/ef917f72-88a1-4779-b10e-964c32d4b1b5" />
 
 # RESULT
-        <<INCLUDE YOUR RESULT HERE>>
+        Thus we have cleaned the data and removed the outliers by detection using IQR and Z-score method.
