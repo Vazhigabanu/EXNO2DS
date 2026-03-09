@@ -130,7 +130,8 @@ plt.show()
 ~~~
 <img width="782" height="538" alt="Screenshot 2026-03-09 112648" src="https://github.com/user-attachments/assets/20a8d045-843b-432b-ac1a-f2c3d404579a" />
 
-<img width="782" height="538" alt="Screenshot 2026-03-09 112648" src="https://github.com/user-attachments/assets/b71aa71b-aa72-40fa-be1c-fe49c1436d3f" />
+<img width="963" height="580" alt="Screenshot 2026-03-09 112654" src="https://github.com/user-attachments/assets/4a234b04-9e3e-4501-a560-852b63facc6e" />
+
 
 ~~~
 # ----------------------------------------
@@ -152,7 +153,8 @@ sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm")
 plt.title("Correlation Heatmap - Titanic Dataset")
 plt.show()
 ~~~
-<img width="782" height="538" alt="Screenshot 2026-03-09 112648" src="https://github.com/user-attachments/assets/ef917f72-88a1-4779-b10e-964c32d4b1b5" />
+<img width="954" height="733" alt="Screenshot 2026-03-09 112747" src="https://github.com/user-attachments/assets/faa24b26-989f-4046-a87f-622ab3ebfda4" />
+
 
 # RESULT
         Thus we have cleaned the data and removed the outliers by detection using IQR and Z-score method.
